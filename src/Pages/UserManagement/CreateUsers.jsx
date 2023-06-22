@@ -1,12 +1,38 @@
+
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const CreateUsers = () => {
   const {
-    register,
+    register,reset,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+  fetch(
+    "http://localhost:5000/api/v1/user",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "USER CREATE SUCCESSFULLY",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-control w-full max-auto">
@@ -30,10 +56,10 @@ const CreateUsers = () => {
           </label>
           <input
             className="input input-bordered w-full "
-            {...register("mail", { required: "Email Address is required" })}
-            aria-invalid={errors.mail ? "true" : "false"}
+            {...register("email", { required: "Email Address is required" })}
+            aria-invalid={errors.email ? "true" : "false"}
           />
-          {errors.mail && <p role="alert">{errors.mail?.message}</p>}
+          {errors.email && <p role="alert">{errors.email?.message}</p>}
         </div>
         <div className="form-control">
           <label className="label">

@@ -8,7 +8,6 @@ const useUser = () => {
         return res.json();
     }
 })
-
 return {user, refetch}
 };
 
