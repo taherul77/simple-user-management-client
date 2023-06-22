@@ -1,7 +1,11 @@
+import useUser from "../../hooks/useUser";
 
 
 const AllUser = () => {
-   
+   const {user , refetch} = useUser();
+   console.log('====================================');
+   console.log(user);
+   console.log('====================================');
   return (
     <div>
       <div className="overflow-x-auto">
