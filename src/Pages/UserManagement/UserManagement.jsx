@@ -4,7 +4,7 @@ const UserManagement = () => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content w-full flex flex-col mx-auto  items-center justify-center">
+      <div className="drawer-content w-full flex flex-col mx-auto justify-center m-10">
         <label htmlFor="my-drawer-2" className="btn  drawer-button lg:hidden">
           Open drawer
         </label>

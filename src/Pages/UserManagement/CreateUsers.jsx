@@ -1,40 +1,46 @@
-
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
 import Swal from "sweetalert2";
+import Wrapper from "../../component/Wrapper";
 
 const CreateUsers = () => {
+  const [value, setValue] = useState();
+
   const {
-    register,reset,
+    register,
+    reset,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const onSubmit = (data) => {
-  fetch(
-    "http://localhost:5000/api/v1/user",
-    {
+    data.phone= value
+
+    fetch("http://localhost:5000/api/v1/user", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(data),
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        reset();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "USER CREATE SUCCESSFULLY",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          reset();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "USER CREATE SUCCESSFULLY",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Wrapper>
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-control w-full max-auto">
         <div className="form-control">
           <label className="label">
@@ -65,16 +71,21 @@ const CreateUsers = () => {
           <label className="label">
             <span className="label-text">Phone Number*</span>
           </label>
-          <input
-            className="input input-bordered w-full "
-            type="number"
-            {...register("phone")}
+          <PhoneInput
+            placeholder="Enter phone number"
+            value={value}
+            onChange={setValue}
           />
         </div>
 
-        <input type="submit" className="btn bg-sky-500 mt-6 " value="Create User" />
+        <input
+          type="submit"
+          className="btn bg-blue-300 mt-6 "
+          value="Create User"
+        />
       </div>
     </form>
+    </Wrapper>
   );
 };
 
