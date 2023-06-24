@@ -2,8 +2,10 @@ import Swal from "sweetalert2";
 import useUser from "../../hooks/useUser";
 import { useEffect, useState } from "react";
 import Wrapper from "../../component/Wrapper";
+import useTitle from "../../hooks/useTitle";
 
 const AllUser = () => {
+  useTitle("All User");
   const { user, refetch } = useUser();
   const [showModal, setShowModal] = useState(false);
   const [userId, setUserId] = useState("");

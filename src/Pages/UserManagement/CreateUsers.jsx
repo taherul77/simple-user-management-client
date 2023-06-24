@@ -4,8 +4,10 @@ import PhoneInput from "react-phone-number-input";
 import 'react-phone-number-input/style.css'
 import Swal from "sweetalert2";
 import Wrapper from "../../component/Wrapper";
+import useTitle from "../../hooks/useTitle";
 
 const CreateUsers = () => {
+  useTitle("Create User");
   const [value, setValue] = useState();
 
   const {
